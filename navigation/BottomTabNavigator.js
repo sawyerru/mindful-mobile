@@ -1,9 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
-import TabBarIcon from '../components/TabBarIcon';
+import Icon from 'react-native-vector-icons/FontAwesome';
+//import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import GoalsScreen from '../screens/GoalsScreen';
+import NotesScreen from '../screens/NotesScreen';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -15,21 +17,31 @@ export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+    <BottomTab.Navigator 
+        initialRouteName={INITIAL_ROUTE_NAME}
+        tabBarOptions={{
+            activeTintColor: '#e91e63',
+            //showLabel: false
+        }}>
+      <BottomTab.Screen
+        name="Notes"
+        component={NotesScreen}
+        options={{
+          tabBarIcon: ({ focused, color }) => <Icon name="sticky-note" size={30} color={color}/>
+        }}
+      />
       <BottomTab.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          title: 'Get Started',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
+          tabBarIcon: ({ focused, color }) => <Icon name="home" size={30} color={color}/>
         }}
       />
       <BottomTab.Screen
-        name="Links"
-        component={LinksScreen}
+        name="Goals"
+        component={GoalsScreen}
         options={{
-          title: 'Resources',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+          tabBarIcon: ({ focused, color }) => <Icon name="area-chart" size={30} color={color} />
         }}
       />
     </BottomTab.Navigator>
@@ -41,8 +53,10 @@ function getHeaderTitle(route) {
 
   switch (routeName) {
     case 'Home':
-      return 'How to get started';
-    case 'Links':
-      return 'Links to learn more';
+      return 'Dashboard';
+    case 'Goals':
+      return 'Set some goals';
+    case 'Notes':
+        return 'Make a note'
   }
 }
