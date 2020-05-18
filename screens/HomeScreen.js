@@ -1,18 +1,25 @@
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, {useState } from 'react';
+import {Image, Platform, StyleSheet, Text, TouchableOpacity, View, Alert} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-
-import { MonoText } from '../components/StyledText';
+import {Button} from './../components/Icon';
+import ToDoList from "../components/ToDoList";
 
 export default function HomeScreen() {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <Text> This is my home page </Text>
+        <ToDoList />
+        {/*<Button name="plus" onPress={onPressAddNote} backgroundColor="#2ecc71" borderRadius={10} />*/}
       </ScrollView>
     </View>
   );
+}
+
+function onPressAddNote(){
+  // setModalVisible(true);
+  Alert.alert('Right button pressed')
 }
 
 HomeScreen.navigationOptions = {

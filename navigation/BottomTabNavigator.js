@@ -1,8 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
-//import TabBarIcon from '../components/TabBarIcon';
+import {Icon} from '../components/Icon';
 import HomeScreen from '../screens/HomeScreen';
 import GoalsScreen from '../screens/GoalsScreen';
 import NotesScreen from '../screens/NotesScreen';
