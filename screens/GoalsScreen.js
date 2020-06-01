@@ -1,16 +1,22 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
+import { SafeAreaView} from "react-native-safe-area-context";
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
-export default function GoalsScreen() {
+export default function GoalsScreen({navigation}) {
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <Text>This is my Goals Screen</Text>
-      </ScrollView>
-    </View>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.filter}>
+            <Button title="Filter" onPress={()=> navigation.openDrawer()}/>
+          </View>
+        </View>
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+          <Text>This is my Goals Screen</Text>
+        </ScrollView>
+      </View>
   );
 }
 
@@ -19,26 +25,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafafa',
   },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  optionIconContainer: {
-    marginRight: 12,
-  },
-  option: {
-    backgroundColor: '#fdfdfd',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: 0,
-    borderColor: '#ededed',
-  },
-  lastOption: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  optionText: {
-    fontSize: 15,
-    alignSelf: 'flex-start',
-    marginTop: 1,
+  header: {
+    backgroundColor: '#fafafa',
+    height: '5%',
+    borderBottomWidth: 2,
+    borderBottomColor: '#000',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
 });

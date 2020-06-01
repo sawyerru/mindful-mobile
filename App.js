@@ -1,12 +1,14 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Button } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 
 import useCachedResources from './hooks/useCachedResources';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LinkingConfiguration from './navigation/LinkingConfiguration';
-import Header from './components/Header';
+import ProfileScreen from "./screens/ProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,15 +19,20 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
-        <Header />
-        <NavigationContainer linking={LinkingConfiguration}>
-          <Stack.Navigator>
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </View>
+        <SafeAreaProvider>
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="dark-content" />}
+              <NavigationContainer theme={DefaultTheme} linking={LinkingConfiguration}>
+                <Stack.Navigator>
+                  <Stack.Screen name="Root" component={BottomTabNavigator}/>
+                  <Stack.Screen name="Profile" component={ProfileScreen} />
+                </Stack.Navigator>
+              </NavigationContainer>
+
+          </View>
+        </SafeAreaProvider>
+
+
     );
   }
 }

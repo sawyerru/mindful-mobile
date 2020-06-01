@@ -12,10 +12,12 @@ function Icon(props) {
   );
 }
 
-function Button({title, name, onPressAddNote}) {
+function Button({title, info, onPress}) {
   return (
-      <TouchableOpacity style={styles.interactionButton} onPress={() => onPressAddNote(name)}>
-        <Icon name={name}  size={30} color="#fff" />
+      <TouchableOpacity onPress={() => onPressAddNote(name)}>
+        <View style={styles.button}>
+          <Text style={styles.buttonContent}> { info } </Text>
+        </View>
       </TouchableOpacity>
   )
 }
