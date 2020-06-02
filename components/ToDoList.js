@@ -1,12 +1,22 @@
 import React, {useState} from "react";
-import {FlatList, StyleSheet, View, TextInput, Button, Alert, TouchableWithoutFeedback, Keyboard} from "react-native";
+import {FlatList, TouchableOpacity, StyleSheet, View, TextInput, Button, Alert, TouchableWithoutFeedback, Keyboard, Text} from "react-native";
+import * as SQLite from 'expo-sqlite';
+
+import {globalStyles} from "../styles/globalStyles";
 import ListItem from './ListItem';
 
+const db = SQLite.openDatabase("db.db");
+//DB should have 4 tables for now
+// SETTINGS: demographics + preferences (layout and design?) // Implement late
+// TODO: (_id, Text, completed_flag, time, order)
+// NOTES: (_id,
+// GOALS: (_id,
+
 export default function ToDoList(props) {
+
     const [todos, setToDo] = useState([
-        { text: 'Exercise', key: 1},
-        { text: 'Build My App', key: 2},
-        { text: 'Love on Anna', key: 3}
+        {key: 1, text: "Run 4 Miles"},
+        {key: 2, text: "Call Car Shop"}
     ])
     let toDoCount = todos.length
 
@@ -19,12 +29,16 @@ export default function ToDoList(props) {
     const pressHandler = (key) => {
         setToDo( (prevToDos)=> {
             toDoCount--;
+            // remove from ToDo table
             return prevToDos.filter(todo => todo.key !== key);
         });
     }
 
     const addToDo = () => {
         if (text.length >= 3) {
+            // Write to ToDo table
+            //  db.transaction()
+            toDoCount++;
             setToDo(prevState => {
                 return [
                     {text: text, key: toDoCount++},
@@ -37,16 +51,8 @@ export default function ToDoList(props) {
         }
     }
 
-    const renderInput = () => {
-        return (
-            <TextInput
-                style={styles.input}
-                placeholder='What are you going to do?'
-                onChangeText={changeHandler}
-                // returnKeyType='done'
-                onSubmitEditing={() => {addToDo()}}
-            />
-        )
+    const expandList = () => {
+        alert('Expand ToDo List')
     }
 
     return (
@@ -54,54 +60,46 @@ export default function ToDoList(props) {
             Keyboard.dismiss();
         }}
         >
-            <View style={styles.tileContainer}>
-                <View style={styles.tile}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder=' What are you going to do?'
-                        onChangeText={changeHandler}
-                        returnKeyType='done'
-                        onSubmitEditing={() => {addToDo()}}
-                    />
-                    <View style={styles.list}>
-                        <FlatList
-                            // ListHeaderComponent={renderInput}
-                            data={todos}
-                            renderItem={
-                                ({item}) => (
-                                    <ListItem item={item} pressHandler={pressHandler}/>
-                                    )
-                            }
-                        />
-                    </View>
-                </View>
-            </View>
+            <FlatList
+                ListHeaderComponent={
+                 <TextInput
+                     style={styles.input}
+                     placeholder='What are you going to do?'
+                     onChangeText={changeHandler}
+                     returnKeyType='done'
+                     onSubmitEditing={() => {addToDo()}}
+                 />
+                }
+                data={todos}
+                renderItem={
+                    ({item}) => (
+                        <ListItem item={item} pressHandler={pressHandler}/>
+                        )
+                }
+                keyExtractor={(item) => item.key.toString()}
+                ListFooterComponent={
+                    <TouchableOpacity onPress={expandList}>
+                        <Text style={styles.ellipses}> ... </Text>
+                    </TouchableOpacity>
+                }
+            />
         </TouchableWithoutFeedback>
 
     )
 }
 
 const styles = StyleSheet.create({
-    tileContainer: {
-        flex: 1,
-        marginLeft: '2%',
-        marginRight: '2%',
-    },
     input: {
-        height: '20%',
-        fontSize: 25,
+        height: 40,
+        fontSize: 20,
+        padding: 10,
         margin: '2%',
         backgroundColor: '#d3d3d3',
         borderRadius: 10,
         justifyContent: 'center',
     },
-    tile: {
-        flex: 1,
-        width: '80%',
-        alignContent: 'center',
-        borderRadius: 15,
-        shadowColor: '#000000',
-        shadowOffset: {width: 1, height: 2},
-        borderWidth: 2
+    ellipses: {
+        fontSize: 30,
+        alignSelf: 'flex-end'
     },
 })

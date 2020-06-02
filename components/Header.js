@@ -14,38 +14,6 @@ export const ProfileIcon = ({navigation}) => {
     )
 }
 
-const handleMenuPress = () => {
-    alert("MENU PRESSED")
-}
-
-const renderIcon = ({navigation}) => {
-    const isDrawerOpen = useIsDrawerOpen();
-    if (isDrawerOpen) {
-        return (
-            <TouchableOpacity onPress={()=> navigation.closeDrawer()}>
-                <Icon name='chevron-left' size={25} color='#000'/>
-            </TouchableOpacity>
-        )
-    } else {
-        return (
-            <TouchableOpacity onPress={()=> navigation.openDrawer()}>
-                <Icon name='bars' size={25} color='#000'/>
-            </TouchableOpacity>
-        )
-    }
-
-}
-export const DrawerMenuIcon = ({navigation}) => {
-    return (
-        <View style={styles.profileIcon}>
-            {renderIcon({navigation})}
-            {/*<TouchableOpacity >*/}
-            {/*    <Icon name='bars' size={25} color='#000'/>*/}
-            {/*</TouchableOpacity>*/}
-        </View>
-    )
-}
-
 const styles = StyleSheet.create({
     headerBar: {
         justifyContent: 'space-between',

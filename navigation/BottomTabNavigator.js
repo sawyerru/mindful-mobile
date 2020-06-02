@@ -3,8 +3,6 @@ import { SafeAreaProvider} from "react-native-safe-area-context";
 import * as React from 'react';
 
 import {Icon} from '../components/Icon';
-import GoalsScreen from '../screens/GoalsScreen';
-import NotesScreen from '../screens/NotesScreen';
 import HeaderStackNavigation from "./HeaderStackNavigation";
 import NotesDrawerNavigation from "./NotesDrawerNavigation";
 import GoalsDrawerNavigation from "./GoalsDrawerNavigation";
@@ -17,10 +15,7 @@ const INITIAL_ROUTE_NAME = 'Home';
 export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions({
       headerTitle: getHeaderTitle(route),
-      headerRight: () => (
-          getHeaderTitle(route) === 'Dashboard' ? <ProfileIcon navigation={navigation} /> : null),
-      // headerLeft: () =>
-      //     (getHeaderTitle(route) !== 'Dashboard' ? <DrawerMenuIcon navigation={navigation} /> : null ),
+      headerRight: () => <ProfileIcon navigation={navigation} />,
       headerStyle: globalStyles.header
   });
 

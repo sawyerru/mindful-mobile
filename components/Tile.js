@@ -2,19 +2,29 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 
 export default function Tile(props){
-    <View style={styles.tile}>
-        <Text style={styles.title}>{props.title}</Text>
-    </View>
+    return (
+        <View style={props.className}>
+            <View style={styles.tileContainer}>
+                {props.children}
+            </View>
+        </View>
+    )
 }
 
 const styles= StyleSheet.create({
     tile: {
-        flex: 1,
-        marginLeft: 10,
-        marginRight: 10,
-        borderRadius: 15,
-        shadowColor: '#000000',
-        shadowOffset: {width: 1, height: 2},
-        borderWidth: 2,
-    }
+        borderRadius: 6,
+        elevation: 3,
+        backgroundColor: '#fff',
+        shadowOffset: {width: 1, height: 1},
+        shadowColor: '#333',
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        marginHorizontal: 4,
+        marginVertical: 6,
+    },
+    tileContainer: {
+        marginHorizontal: 18,
+        marginVertical: 10,
+    },
 })
