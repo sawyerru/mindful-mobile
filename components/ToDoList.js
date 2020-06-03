@@ -1,23 +1,16 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {FlatList, TouchableOpacity, StyleSheet, View, TextInput, Button, Alert, TouchableWithoutFeedback, Keyboard, Text} from "react-native";
 import * as SQLite from 'expo-sqlite';
 
 import {globalStyles} from "../styles/globalStyles";
 import ListItem from './ListItem';
-
-const db = SQLite.openDatabase("db.db");
-//DB should have 4 tables for now
-// SETTINGS: demographics + preferences (layout and design?) // Implement late
-// TODO: (_id, Text, completed_flag, time, order)
-// NOTES: (_id,
-// GOALS: (_id,
+import database, {ToDoTable} from '../services/Database';
+const db = database();
 
 export default function ToDoList(props) {
 
-    const [todos, setToDo] = useState([
-        {key: 1, text: "Run 4 Miles"},
-        {key: 2, text: "Call Car Shop"}
-    ])
+    const [todos, setToDo] = useState([])
+
     let toDoCount = todos.length
 
     const [text, updateText] = useState('');
@@ -29,19 +22,25 @@ export default function ToDoList(props) {
     const pressHandler = (key) => {
         setToDo( (prevToDos)=> {
             toDoCount--;
-            // remove from ToDo table
+            ToDoTable.markComplete(db, key)
             return prevToDos.filter(todo => todo.key !== key);
         });
     }
 
+    const show = () => {
+        ToDoTable.show(db);
+    }
+
     const addToDo = () => {
         if (text.length >= 3) {
-            // Write to ToDo table
-            //  db.transaction()
-            toDoCount++;
+
+            // Write to ToDo Table
+            ToDoTable.insertItem(db, text, toDoCount);
+
+            //Update rendered Objects
             setToDo(prevState => {
                 return [
-                    {text: text, key: toDoCount++},
+                    {text: text, key: toDoCount},
                     ...prevState
                 ]
             })
@@ -83,6 +82,7 @@ export default function ToDoList(props) {
                     </TouchableOpacity>
                 }
             />
+
         </TouchableWithoutFeedback>
 
     )
@@ -90,7 +90,7 @@ export default function ToDoList(props) {
 
 const styles = StyleSheet.create({
     input: {
-        height: 40,
+        height: 45,
         fontSize: 20,
         padding: 10,
         margin: '2%',
