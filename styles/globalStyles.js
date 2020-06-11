@@ -14,10 +14,32 @@ export const globalStyles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 2,
         marginHorizontal: 4,
-        marginVertical: 6
+        marginVertical: 6,
     },
     tileContainer: {
         marginHorizontal: 18,
         marginVertical: 10,
     },
+    modalContainer: {
+        marginVertical: 100,
+        marginHorizontal: 30,
+        borderRadius: 20,
+        padding: 50,
+        flex: 1,
+        backgroundColor: '#E2E9FF',
+        justifyContent: 'flex-start',
+    },
+    modalHeader: {
+        borderBottomColor: '#333',
+        borderBottomWidth: 2,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    modalTitle: {
+        fontSize: 25,
+        fontWeight: 'bold',
+    },
+    formContainer: {
+
+    }
 })

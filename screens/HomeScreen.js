@@ -1,31 +1,45 @@
 import React, {useState } from 'react';
-import {Image, Platform, StyleSheet, Text, TouchableOpacity, View, Alert, Button} from 'react-native';
+import {Modal, Platform, StyleSheet, Text, TouchableOpacity, View, Alert, TouchableHighlight} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import ToDoList from '../components/ToDoList';
 import Tile from '../components/Tile';
+import { Icon } from '../components/Icon';
+import NotesModal from "../components/NotesModal";
+import GoalsModal from "../components/GoalsModal";
 
 export default function HomeScreen({navigation}) {
-  const [modalVisible, setModalVisible] = useState(false);
-  
+  const [notesModalVisible, setNotesModalVisible] = useState(false);
+  const [goalsModalVisible, setGoalsModalVisible] = useState(false);
+
+
   return (
     <View style={styles.container}>
+      <NotesModal setModalVisible={setNotesModalVisible} modalVisible={notesModalVisible} />
+      <GoalsModal setModalVisible={setGoalsModalVisible} modalVisible={goalsModalVisible} />
+
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.row}>
+        <View style={styles.row} >
           <Tile className={styles.todoList}>
             <ToDoList />
           </Tile>
-          <Tile className={styles.addNoteButton}>
-            <Button title="+" onPress={()=> alert("Add Note")} />
-          </Tile>
+          <View style={styles.buttonContainer} >
+            <Tile className={styles.addNoteButton}>
+              <TouchableOpacity onPress={() => setNotesModalVisible(true)}>
+                <Icon name='plus' size={35} color='#fff' />
+                {/*<Text> Add Note </Text>*/}
+              </TouchableOpacity>
+            </Tile>
+            <Tile className={styles.addGoalButton}>
+              <TouchableOpacity onPress={() => setGoalsModalVisible(true)}>
+                <Icon name='plus' size={35} color='#fff' />
+                {/*<Text> Add Goal </Text>*/}
+              </TouchableOpacity>
+            </Tile>
+          </View>
         </View>
       </ScrollView>
     </View>
   );
-}
-
-function onPressAddNote(name){
-  // setModalVisible(true);
-  Alert.alert('Button Pressed!' + name)
 }
 
 
@@ -40,6 +54,9 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
   },
+  buttonContainer: {
+    flexDirection: 'column'
+  },
   todoList: {
     borderRadius: 6,
     elevation: 3,
@@ -50,7 +67,8 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     marginHorizontal: 4,
     marginVertical: 6,
-    width: '80%'
+    width: '80%',
+    alignSelf: 'flex-start',
   },
   addNoteButton: {
     borderRadius: 100,
@@ -65,5 +83,27 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
     position: 'relative',
+    justifyContent: 'center',
+    alignContent: 'center',
+    paddingLeft: 3,
+    alignSelf: 'flex-end'
+  },
+  addGoalButton: {
+    borderRadius: 100,
+    elevation: 3,
+    backgroundColor: '#FFBF00',
+    shadowOffset: {width: 1, height: 1},
+    shadowColor: '#333',
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    marginHorizontal: 4,
+    marginVertical: 6,
+    height: 70,
+    width: 70,
+    position: 'relative',
+    justifyContent: 'center',
+    alignContent: 'center',
+    paddingLeft: 3,
+    alignSelf: 'flex-end'
   }
 });

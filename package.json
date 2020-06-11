@@ -24,7 +24,9 @@
     "expo-font": "~8.1.0",
     "expo-linking": "^1.0.1",
     "expo-splash-screen": "^0.2.3",
+    "expo-sqlite": "~8.1.0",
     "expo-web-browser": "~8.2.0",
+    "formik": "^2.1.4",
     "react": "~16.9.0",
     "react-devtools": "^4.7.0",
     "react-dom": "~16.9.0",
@@ -38,7 +40,7 @@
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.3.9",
-    "expo-sqlite": "~8.1.0"
+    "yup": "^0.29.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
