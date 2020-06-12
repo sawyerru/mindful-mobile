@@ -7,9 +7,15 @@ const db = database();
 
 
 export default function ToDoListModal({setModalVisible, modalVisible, updateList}) {
-    const clearTable = () => {
-        ToDoTable.clear(db);
-        ToDoTable.loadList(db, updateList)
+    const clearAll = () => {
+        ToDoTable.clearAll(db);
+        ToDoTable.loadList(db, updateList);
+        setModalVisible(!modalVisible);
+    }
+    const clearCompleted = () => {
+        ToDoTable.clearCompleted(db);
+        ToDoTable.loadList(db, updateList);
+        setModalVisible(!modalVisible);
     }
     return(
         <Modal
@@ -26,8 +32,8 @@ export default function ToDoListModal({setModalVisible, modalVisible, updateList
                         <Icon name='times' size={25} color='#FF0000' />
                     </TouchableOpacity>
                 </View>
-                <Button title='Clear All ToDos' onPress={clearTable} />
-                <Button title='Clear Completed ToDos' onPress={clearTable}/>
+                <Button title='Clear All ToDos' onPress={clearAll} />
+                <Button title='Clear Completed ToDos' onPress={clearCompleted}/>
             </View>
         </Modal>
 

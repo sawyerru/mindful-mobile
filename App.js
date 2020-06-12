@@ -28,17 +28,18 @@ export default function App(props) {
           tx.executeSql(
               "create table if not exists ToDo (id integer primary key not null, key int, content text, completed bool, rank int);",
               [],
-              (_, set) => {console.log("SUCCESS")},
-              (_, err) => {console.log("FAILURE", err)} );
+              (_, set) => {console.log("ToDo Creation SUCCESS")},
+              (_, err) => {console.log("ToDo Creation FAILURE", err)}
+              );
           //tx.executeSql("create table if not exits Settings (id integer primary key not null, fname text, lname text");
-          //tx.executeSql("create table if not exists Notes (;
-          //tx.executeSql("create table if not exists Goals (;
-          tx.executeSql(
-              "SELECT * from sqlite_master",
+          tx.executeSql("create table if not exists Notes " +
+              "(id integer primary key not null, " +
+              "tag text, context text, feeling text, explanation text, isReflected bool, reflection text, lesson1 text, lesson2 text);",
               [],
-              (_, set) => {console.log(set)},
-              (_, err) => {console.log(err)}
-          )
+              (_, set) => {console.log("Notes Creation SUCCESS")},
+              (_, err) => {console.log("Notes Creation FAILURE", err)}
+              );
+          //tx.executeSql("create table if not exists Goals (;
       });
   });
 

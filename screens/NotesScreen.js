@@ -1,34 +1,65 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
-import {SafeAreaView} from "react-native-safe-area-context";
-import * as React from 'react';
-import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import React, {useState, useEffect} from 'react';
+import {Button, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import Tile from "../components/Tile";
+import NotesCard from "../components/NotesCard";
+import database, {NotesTable} from "../services/Database";
+import {globalStyles} from "../styles/globalStyles";
+import NotesModal from "../components/NotesModal";
+const db = database();
 
 export default function NotesScreen({navigation}) {
-  return (
+    const [modalVisible, setModalVisible] = useState(false);
+    const [notes, updateNotes] = useState([]);
+
+    useEffect( ()=> {
+            NotesTable.loadNotes(db, updateNotes);
+        },
+    []);
+
+
+
+    return (
       <View style={styles.container}>
         <View style={styles.header}>
           <Button title="Filters" onPress={()=> navigation.openDrawer()}/>
+          <Button title="Add Note" onPress={()=>setModalVisible(!modalVisible)} />
+        <Button title="Purge" onPress={()=>NotesTable.clear(db)} />
+          <Button title="view notes" onPress={()=> {
+              console.log(notes);
+              NotesTable.loadNotes(db, updateNotes);
+          }} />
+
         </View>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <Text>This is my Notes Screen</Text>
-        </ScrollView>
+        <NotesModal setModalVisible={setModalVisible} modalVisible={modalVisible} />
+        <FlatList
+            style={styles.notesContainer}
+            data={notes}
+            renderItem={
+                ({item}) => (
+                    <Tile className={globalStyles.tile}>
+                        <NotesCard item={item}/>
+                    </Tile>
+                )
+            }
+            />
       </View>
-  );
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fafafa',
-  },
-  header: {
-    backgroundColor: '#fafafa',
-    height: '5%',
-    borderBottomWidth: 2,
-    borderBottomColor: '#000',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fafafa',
+    },
+    header: {
+        backgroundColor: '#fafafa',
+        height: '5%',
+        borderBottomWidth: 2,
+        borderBottomColor: '#000',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    notesContainer: {
+        paddingHorizontal: 10,
+    }
 });

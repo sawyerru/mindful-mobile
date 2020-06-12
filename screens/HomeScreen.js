@@ -26,13 +26,13 @@ export default function HomeScreen({navigation}) {
             <Tile className={styles.addNoteButton}>
               <TouchableOpacity onPress={() => setNotesModalVisible(true)}>
                 <Icon name='plus' size={35} color='#fff' />
-                {/*<Text> Add Note </Text>*/}
+                <Text>Note</Text>
               </TouchableOpacity>
             </Tile>
             <Tile className={styles.addGoalButton}>
               <TouchableOpacity onPress={() => setGoalsModalVisible(true)}>
                 <Icon name='plus' size={35} color='#fff' />
-                {/*<Text> Add Goal </Text>*/}
+                <Text>Goal</Text>
               </TouchableOpacity>
             </Tile>
           </View>

@@ -30,7 +30,7 @@ export const ToDoTable = {
             )
         })
     },
-    insertItem: (db, text, count, setToDo) => {
+    insertItem: (db, text, count) => {
         db.transaction(
             tx => {
                 tx.executeSql(
@@ -70,7 +70,7 @@ export const ToDoTable = {
             }
         )
     },
-    clear: (db) => {
+    clearAll: (db) => {
         db.transaction(
             tx => {
                 tx.executeSql(
@@ -87,7 +87,21 @@ export const ToDoTable = {
             (err) => {console.log(err)},
             () => {console.log("CLEAR TABLE SUCCESS")}
         )
-    }
+    },
+    clearCompleted: (db) => {
+        db.transaction(tx => {
+                tx.executeSql(
+                    "DELETE FROM ToDo WHERE completed = ?",
+                    [true],
+                    (_, set) => {
+                        console.log("SQL clear completed success")
+                    },
+                    (_, err) => {
+                        console.log(err)
+                    }
+                );
+        });
+    },
 }
 
 /// Notes Table
@@ -95,18 +109,44 @@ export const NotesTable = {
     show: (db) => {
         db.transaction( tx => {
             tx.executeSql(
-                "select * from ToDo",
+                "select * from Notes",
                 [],
                 (_, set) => {console.log(set)},
                 (_, err) => {console.log(err)}
             );
         })
     },
+    addNote: (db, values) => {
+        db.transaction( tx => {
+            tx.executeSql(
+                "INSERT INTO Notes (tag, context, feeling, explanation, isReflected, reflection, lesson1, lesson2)" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                [values['tag'], values['context'], values['feeling'], values['explanation'], false, null, null, null],
+                (_, set) => {console.log("insert note success")},
+                (_, err) => {console.log(err)}
+            );
+        });
+    },
+    loadNotes: (db, updateNotes) => {
+        db.transaction( tx => {
+            tx.executeSql(
+                "SELECT * FROM Notes",
+                [],
+                (_, set) => {
+                    updateNotes(set.rows['_array']);
+                },
+                (_, err) => {
+                console.log(err)
+                }
+            );
+
+        });
+    },
     clear: (db) => {
         db.transaction(
             tx => {
                 tx.executeSql(
-                    "DELETE FROM ToDo",
+                    "DELETE FROM Notes",
                     [],
                     (_, set) => {
                         console.log("SQL delete from table success")

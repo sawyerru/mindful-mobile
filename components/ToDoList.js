@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {FlatList, TouchableOpacity, StyleSheet, View, TextInput, Button, Alert, TouchableWithoutFeedback, Keyboard, Text} from "react-native";
+import {FlatList, TouchableOpacity, StyleSheet, View, TextInput, Alert, TouchableWithoutFeedback, Keyboard, Text} from "react-native";
 
 import {globalStyles} from "../styles/globalStyles";
 import { Icon } from './Icon';
@@ -31,9 +31,6 @@ export default function ToDoList(props) {
     const pressHandler = (key) => {
         ToDoTable.markComplete(db, key);
         ToDoTable.loadList(db, setToDo);
-        // setToDo( (prevToDos)=> {
-        //     return prevToDos.filter(todo => todo.key !== key);
-        // });
     }
 
     const addToDo = () => {
@@ -41,15 +38,6 @@ export default function ToDoList(props) {
             // Write to ToDo Table
             ToDoTable.insertItem(db, text, toDoCount);
             ToDoTable.loadList(db, setToDo);
-
-            // Clear Text from field
-            // Update rendered Objects
-            // setToDo(prevState => {
-            //     return [
-            //         {text: text, key: toDoCount},
-            //         ...prevState
-            //     ]
-            // });
 
         }
         else {
@@ -62,10 +50,7 @@ export default function ToDoList(props) {
     }
 
     return (
-        <TouchableWithoutFeedback onPress={() => {
-                Keyboard.dismiss();
-            }}
-            >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View>
                 <ToDoListModal modalVisible={modalVisible} setModalVisible={setModalVisible} updateList={setToDo}/>
                 <FlatList
@@ -76,10 +61,14 @@ export default function ToDoList(props) {
                                 placeholder='What are you going to do?'
                                 onChangeText={changeHandler}
                                 returnKeyType='done'
-                                onSubmitEditing={() => {addToDo()}}
+                                onSubmitEditing={() => {
+                                    addToDo();
+                                    updateText("");
+                                    }
+                                }
                             />
                             <TouchableOpacity onPress={()=>setModalVisible(!modalVisible)}>
-                                <Text style={styles.ellipses}> ... </Text>
+                                <Text style={styles.ellipses}>...</Text>
                             </TouchableOpacity>
                         </View>
                     }
@@ -91,9 +80,11 @@ export default function ToDoList(props) {
                     }
                     keyExtractor={(item) => item.key.toString()}
                     ListFooterComponent={
-                        <TouchableOpacity style={styles.chevron} onPress={expandList}>
-                            <Icon name='chevron-down' size={15} color='#000'/>
-                        </TouchableOpacity>
+                        toDoCount > 3 && <View>
+                                            <TouchableOpacity style={styles.chevron} onPress={expandList}>
+                                                <Icon name='chevron-down' size={15} color='#000'/>
+                                            </TouchableOpacity>
+                                        </View>
                     }
                 />
             </View>
@@ -113,12 +104,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     chevron: {
-        // display: toDoCount > 3 ? 'none'
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-end',
     },
     ellipses: {
         fontSize: 15,
         fontWeight: 'bold',
         alignSelf: 'flex-end',
+        paddingRight: 1
     },
 })
