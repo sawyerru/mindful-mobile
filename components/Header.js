@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, View, Platform, TouchableOpacity} from "react-native";
-import {Icon} from './Icon';
+import {VisualObjects} from './VisualObjects';
 import { useIsDrawerOpen } from '@react-navigation/drawer';
 
 
@@ -8,7 +8,7 @@ export const ProfileIcon = ({navigation}) => {
     return (
         <View style={styles.profileIcon}>
             <TouchableOpacity onPress={()=> navigation.navigate('Profile')}>
-                <Icon name='user-circle' size={25} color='#000'/>
+                <VisualObjects name='user-circle' size={25} color='#000'/>
             </TouchableOpacity>
         </View>
     )

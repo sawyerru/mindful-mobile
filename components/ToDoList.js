@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {FlatList, TouchableOpacity, StyleSheet, View, TextInput, Alert, TouchableWithoutFeedback, Keyboard, Text} from "react-native";
 
 import {globalStyles} from "../styles/globalStyles";
-import { Icon } from './Icon';
+import { VisualObjects } from './VisualObjects';
 import ListItem from './ListItem';
 import database, {ToDoTable} from '../services/Database';
 import ToDoListModal from "./ToDoListModal";
@@ -82,7 +82,7 @@ export default function ToDoList(props) {
                     ListFooterComponent={
                         toDoCount > 3 && <View>
                                             <TouchableOpacity style={styles.chevron} onPress={expandList}>
-                                                <Icon name='chevron-down' size={15} color='#000'/>
+                                                <VisualObjects name='chevron-down' size={15} color='#000'/>
                                             </TouchableOpacity>
                                         </View>
                     }

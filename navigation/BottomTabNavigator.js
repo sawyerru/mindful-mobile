@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider} from "react-native-safe-area-context";
 import * as React from 'react';
 
-import {Icon} from '../components/Icon';
+import {VisualObjects} from '../components/VisualObjects';
 import HeaderStackNavigation from "./HeaderStackNavigation";
 import NotesDrawerNavigation from "./NotesDrawerNavigation";
 import GoalsDrawerNavigation from "./GoalsDrawerNavigation";
@@ -30,21 +30,21 @@ export default function BottomTabNavigator({ navigation, route }) {
               name="Notes"
               component={NotesDrawerNavigation}
               options={{
-                  tabBarIcon: ({ focused, color }) => <Icon name="sticky-note" size={30} color={color}/>,
+                  tabBarIcon: ({ focused, color }) => <VisualObjects name="sticky-note" size={30} color={color}/>,
               }}
           />
           <BottomTab.Screen
               name="Home"
               component={HeaderStackNavigation}
               options={{
-                  tabBarIcon: ({ focused, color }) => <Icon name="home" size={30} color={color}/>,
+                  tabBarIcon: ({ focused, color }) => <VisualObjects name="home" size={30} color={color}/>,
               }}
           />
           <BottomTab.Screen
               name="Goals"
               component={GoalsDrawerNavigation}
               options={{
-                  tabBarIcon: ({ focused, color }) => <Icon name="area-chart" size={30} color={color} />,
+                  tabBarIcon: ({ focused, color }) => <VisualObjects name="area-chart" size={30} color={color} />,
               }}
           />
       </BottomTab.Navigator>

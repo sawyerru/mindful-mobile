@@ -2,6 +2,6 @@ export const TagColorConsts = {
     work: 'red',
     sigother: 'blue',
     friends: 'green',
-    family: 'yellow',
+    family: 'orange',
     other: 'pink',
 }

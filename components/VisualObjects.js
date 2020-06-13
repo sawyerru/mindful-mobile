@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Alert, StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 import {FontAwesome} from '@expo/vector-icons';
 
-function Icon(props) {
+function VisualObjects(props) {
   return (
     <FontAwesome
         name={props.name}
@@ -19,6 +19,12 @@ function Button({title, info, onPress}) {
           <Text style={styles.buttonContent}> { info } </Text>
         </View>
       </TouchableOpacity>
+  )
+}
+
+function NotificationIcon() {
+  return (
+      <VisualObjects name="circle" size={25} color="red" />
   )
 }
 
@@ -42,4 +48,4 @@ const styles = StyleSheet.create({
   }
 
 })
-export {Icon, Button}
+export {VisualObjects, Button, NotificationIcon}

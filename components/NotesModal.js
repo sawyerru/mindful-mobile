@@ -3,9 +3,10 @@ import {
     Alert, Modal, Text, View, TouchableOpacity,
     TextInput, StyleSheet, TouchableWithoutFeedback, Keyboard, ScrollView, Button
 } from 'react-native';
-import {Picker} from '@react-native-community/picker';
+// import {Picker} from '@react-native-community/picker';
+import {Picker } from 'react-native';
 import {globalStyles} from '../styles/globalStyles';
-import {Icon} from './Icon';
+import {VisualObjects} from './VisualObjects';
 import { Formik } from 'formik';
 import database, {NotesTable} from "../services/Database";
 const db = database();
@@ -44,14 +45,14 @@ export default function NotesModal({setModalVisible, modalVisible}) {
                         <View style={globalStyles.modalHeader}>
                             <Text style={globalStyles.modalTitle}>Quick Note</Text>
                             <TouchableOpacity onPress={closeModal} >
-                                <Icon name='times' size={25} color='#FF0000' />
+                                <VisualObjects name='times' size={25} color='#FF0000' />
                             </TouchableOpacity>
                         </View>
                         <ScrollView style={globalStyles.formContainer}>
                             <Formik
                                 initialValues={{tag: '', context: '', feeling: '', explanation: ''}}
                                 onSubmit={ (values) => {
-                                    // values['tag'] = tag;
+                                    values['tag'] = tag;
                                     NotesTable.addNote(db, values);
                                     setModalVisible(!modalVisible);
                                     }
@@ -60,7 +61,8 @@ export default function NotesModal({setModalVisible, modalVisible}) {
                                 {(formikProps) => (
                                     <View>
                                         <Picker
-                                            selectedValue={formikProps.values.tag}
+                                            mode='dropdown'
+                                            selectedValue={tag}
                                             onValueChange={(itemValue, itemIndex) => {
                                                 updateTag(itemValue);}}
                                         >

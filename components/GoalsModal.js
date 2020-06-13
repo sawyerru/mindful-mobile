@@ -1,7 +1,7 @@
 import React from "react";
 import {Alert, Modal, Text, Button, View, TouchableOpacity} from "react-native";
 import {globalStyles} from "../styles/globalStyles";
-import {Icon} from "./Icon";
+import {VisualObjects} from "./VisualObjects";
 
 export default function GoalsModal({setModalVisible, modalVisible}) {
     const closeModal = () => {
@@ -33,7 +33,7 @@ export default function GoalsModal({setModalVisible, modalVisible}) {
                 <View style={globalStyles.modalHeader}>
                     <Text style={globalStyles.modalTitle}>Goal Step</Text>
                     <TouchableOpacity onPress={closeModal} >
-                        <Icon name='times' size={25} color='#FF0000' />
+                        <VisualObjects name='times' size={25} color='#FF0000' />
                     </TouchableOpacity>
                 </View>
             </View>
