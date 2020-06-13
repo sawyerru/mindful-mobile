@@ -6,12 +6,12 @@ import {
 // import {Picker} from '@react-native-community/picker';
 import {Picker } from 'react-native';
 import {globalStyles} from '../styles/globalStyles';
-import {VisualObjects} from './VisualObjects';
+import {Icon} from './VisualObjects';
 import { Formik } from 'formik';
 import database, {NotesTable} from "../services/Database";
 const db = database();
 
-export default function NotesModal({setModalVisible, modalVisible}) {
+export default function AddNotesModal({setModalVisible, modalVisible}) {
     const [tag, updateTag] = useState('');
 
     const closeModal = () => {
@@ -45,7 +45,7 @@ export default function NotesModal({setModalVisible, modalVisible}) {
                         <View style={globalStyles.modalHeader}>
                             <Text style={globalStyles.modalTitle}>Quick Note</Text>
                             <TouchableOpacity onPress={closeModal} >
-                                <VisualObjects name='times' size={25} color='#FF0000' />
+                                <Icon name='times' size={25} color='#FF0000' />
                             </TouchableOpacity>
                         </View>
                         <ScrollView style={globalStyles.formContainer}>
@@ -78,12 +78,12 @@ export default function NotesModal({setModalVisible, modalVisible}) {
                                             onChangeText={formikProps.handleChange('context')}
                                             value={formikProps.values.context}
                                         />
-                                        <TextInput
-                                            style={styles.feelingInput}
-                                            placeholder='Feeling'
-                                            onChangeText={formikProps.handleChange('feeling')}
-                                            value={formikProps.values.feeling}
-                                        />
+                                        {/*<TextInput*/}
+                                        {/*    style={styles.feelingInput}*/}
+                                        {/*    placeholder='Feeling'*/}
+                                        {/*    onChangeText={formikProps.handleChange('feeling')}*/}
+                                        {/*    value={formikProps.values.feeling}*/}
+                                        {/*/>*/}
                                         <TextInput
                                             style={styles.explanationInput}
                                             placeholder='Explanation'

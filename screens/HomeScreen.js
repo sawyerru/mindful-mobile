@@ -3,8 +3,8 @@ import {Modal, Platform, StyleSheet, Text, TouchableOpacity, View, Alert, Toucha
 import { ScrollView } from 'react-native-gesture-handler';
 import ToDoList from '../components/ToDoList';
 import Tile from '../components/Tile';
-import { VisualObjects } from '../components/VisualObjects';
-import NotesModal from "../components/NotesModal";
+import { Icon } from '../components/VisualObjects';
+import AddNotesModal from "../components/AddNotesModal";
 import GoalsModal from "../components/GoalsModal";
 
 export default function HomeScreen({navigation}) {
@@ -14,7 +14,7 @@ export default function HomeScreen({navigation}) {
 
   return (
     <View style={styles.container}>
-      <NotesModal setModalVisible={setNotesModalVisible} modalVisible={notesModalVisible} />
+      <AddNotesModal setModalVisible={setNotesModalVisible} modalVisible={notesModalVisible} />
       <GoalsModal setModalVisible={setGoalsModalVisible} modalVisible={goalsModalVisible} />
 
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -25,13 +25,13 @@ export default function HomeScreen({navigation}) {
           <View style={styles.buttonContainer} >
             <Tile className={styles.addNoteButton}>
               <TouchableOpacity onPress={() => setNotesModalVisible(true)}>
-                <VisualObjects name='plus' size={35} color='#fff' />
+                <Icon name='plus' size={35} color='#fff' />
                 <Text>Note</Text>
               </TouchableOpacity>
             </Tile>
             <Tile className={styles.addGoalButton}>
               <TouchableOpacity onPress={() => setGoalsModalVisible(true)}>
-                <VisualObjects name='plus' size={35} color='#fff' />
+                <Icon name='plus' size={35} color='#fff' />
                 <Text>Goal</Text>
               </TouchableOpacity>
             </Tile>

@@ -30,11 +30,21 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: '#E2E9FF',
         justifyContent: 'flex-start',
     },
+    smallModal: {
+        marginTop: 65,
+        marginHorizontal: 30,
+        borderRadius: 20,
+        paddingHorizontal: 30,
+        paddingVertical: 20,
+        backgroundColor: '#E2E9FF',
+        justifyContent: 'flex-start',
+    },
     modalHeader: {
         borderBottomColor: '#333',
         borderBottomWidth: 2,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        margin: 3,
     },
     modalTitle: {
         fontSize: 25,

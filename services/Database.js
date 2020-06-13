@@ -3,6 +3,36 @@ import * as SQLite from 'expo-sqlite';
 export default function database() {
     return SQLite.openDatabase("DB")
 }
+export function createTables(db) {
+    db.transaction(tx => {
+
+        tx.executeSql(
+            "create table if not exists ToDo (id integer primary key not null, key int, content text, completed bool, rank int);",
+            [],
+            (_, set) => {console.log("ToDo Creation SUCCESS")},
+            (_, err) => {console.log("ToDo Creation FAILURE", err)}
+        );
+
+        tx.executeSql(
+            "create table if not exits Settings " +
+            "(id integer primary key not null, fname text, lname text, profileImage text);",
+            [],
+            (_, set) => {console.log("Settings Creation SUCCESS")},
+            (_, err) => {console.log("Settings Table FAILURE")}
+        );
+
+        tx.executeSql(
+            "create table if not exists Notes " +
+            "(id integer primary key not null, " +
+            "tag text, context text, feeling text, explanation text, isReflected bool, reflection text, lesson1 text, lesson2 text);",
+            [],
+            (_, set) => {console.log("Notes Creation SUCCESS")},
+            (_, err) => {console.log("Notes Creation FAILURE", err)}
+        );
+
+        //tx.executeSql("create table if not exists Goals (;
+    });
+}
 
 /// ToDo Table
 export const ToDoTable = {
@@ -133,6 +163,7 @@ export const NotesTable = {
                 "SELECT * FROM Notes",
                 [],
                 (_, set) => {
+                    console.log(set.rows['_array']);
                     updateNotes(set.rows['_array']);
                 },
                 (_, err) => {
